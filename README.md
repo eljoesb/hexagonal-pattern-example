@@ -64,7 +64,7 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 ## Stay in touch
 
-- Author - [Jonathan Villavicencio]
+- Author - [Jonathan Villavicencio](https://github.com/joe-kranio)
 - LinkedIn - [@eljoesb](https://www.linkedin.com/in/eljoesb/)
 - Instagram - [@eljoesb](https://www.instagram.com/eljoesb/)
 
