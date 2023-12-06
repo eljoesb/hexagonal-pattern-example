@@ -1,6 +1,6 @@
 {
   "name": "advanced-architecture",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Simple app using Advance Hexagonal Architecture with NestJS",
   "author": "Jonathan Villavicencio",
   "private": true,
@@ -22,6 +22,7 @@
   "dependencies": {
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
+    "@nestjs/cqrs": "^10.2.6",
     "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/typeorm": "^10.0.1",
