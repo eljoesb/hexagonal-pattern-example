@@ -13,11 +13,11 @@ import { UpsertMaterializedAlarmRepository } from 'src/alarms/application/ports/
       useExisting: InMemoryAlarmRepository,
     },
     {
-      provide: 'FindAlarmRepository',
+      provide: FindAlarmRepository,
       useExisting: InMemoryAlarmRepository,
     },
     {
-      provide: 'UpsertMaterializedAlarmRepository',
+      provide: UpsertMaterializedAlarmRepository,
       useExisting: InMemoryAlarmRepository,
     },
   ],
