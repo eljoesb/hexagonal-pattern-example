@@ -1,17 +1,24 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { AlarmEntity } from '../entities/alarm.entity';
-import { Repository } from 'typeorm';
 import { Alarm } from 'src/alarms/domain/alarm';
 import { AlarmMapper } from '../mappers/alarm.mapper';
+import { UpsertMaterializedAlarmRepository } from 'src/alarms/application/ports/upsert-materialized-alarm.repository';
+import { CreateAlarmRepository } from 'src/alarms/application/ports/create-alarm.repository';
+import { FindAlarmRepository } from 'src/alarms/application/ports/find-alarm.repository';
+import { AlarmReadModel } from 'src/alarms/domain/read-models/alarm.read-model';
 
 @Injectable()
-export class InMemoryAlarmRepository {
+export class InMemoryAlarmRepository
+  implements
+    CreateAlarmRepository,
+    FindAlarmRepository,
+    UpsertMaterializedAlarmRepository
+{
   private readonly alarms = new Map<string, AlarmEntity>();
+  private readonly matelializedAlarmViews = new Map<string, AlarmReadModel>();
 
-  async findAll(): Promise<Alarm[]> {
-    const entities = Array.from(this.alarms.values());
-    return entities.map((entity) => AlarmMapper.toDomain(entity));
+  async findAll(): Promise<AlarmReadModel[]> {
+    return Array.from(this.matelializedAlarmViews.values());
   }
 
   async save(alarm: Alarm): Promise<Alarm> {
@@ -20,5 +27,18 @@ export class InMemoryAlarmRepository {
 
     const newEntity = this.alarms.get(persistenceModel.id);
     return AlarmMapper.toDomain(newEntity);
+  }
+
+  async upsert(
+    alarm: Pick<AlarmReadModel, 'id'> & Partial<AlarmReadModel>,
+  ): Promise<void> {
+    if (this.matelializedAlarmViews.has(alarm.id)) {
+      this.matelializedAlarmViews.set(alarm.id, {
+        ...this.matelializedAlarmViews.get(alarm.id),
+        ...alarm,
+      });
+      return;
+    }
+    this.matelializedAlarmViews.set(alarm.id, alarm as AlarmReadModel);
   }
 }

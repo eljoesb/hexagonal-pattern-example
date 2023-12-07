@@ -1,9 +1,15 @@
 version: '3'
 services:
-  db:
+  write-db:
     image: postgres
     restart: always
     ports:
       - 5432:5432
     environment:
       POSTGRES_PASSWORD: postgres
+  read-db:
+    image: mongo
+    ports:
+      - 27017:27017
+    environment:
+      - MONGODB_DATABASE="vf-read-db"
