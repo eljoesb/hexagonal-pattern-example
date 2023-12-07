@@ -8,7 +8,7 @@ export class VersionedAggregateRoot extends AggregateRoot {
 
   private [VERSION] = new Version(0);
 
-  get Version(): Version {
+  get version(): Version {
     return this[VERSION];
   }
 
