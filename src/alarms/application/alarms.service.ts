@@ -1,7 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { CreateAlarmCommand } from './commands/create-alarm.command';
-import { AlarmRepository } from './ports/alarm.repository';
-import { AlarmFactory } from '../domain/factories/alarm.factory';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { GetAlarmsQuery } from './queries/get-alarms.query';
 

@@ -4,6 +4,7 @@ import { AlarmsController } from '../presenters/http/alarms.controller';
 import { AlarmFactory } from '../domain/factories/alarm.factory';
 import { CreateAlarmCommandHandler } from './commands/create-alarm.command-handler';
 import { GetAlarmsQueryHandler } from './queries/get-alarms.query-handler';
+import { AlarmCreatedEventHandler } from './events-handler/alarm-created.event-handler';
 
 @Module({
   controllers: [AlarmsController],
@@ -12,6 +13,7 @@ import { GetAlarmsQueryHandler } from './queries/get-alarms.query-handler';
     AlarmFactory,
     CreateAlarmCommandHandler,
     GetAlarmsQueryHandler,
+    AlarmCreatedEventHandler,
   ],
 })
 export class AlarmsModule {

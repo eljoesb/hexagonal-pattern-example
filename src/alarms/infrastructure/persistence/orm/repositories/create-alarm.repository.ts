@@ -4,22 +4,18 @@ import { AlarmEntity } from '../entities/alarm.entity';
 import { Repository } from 'typeorm';
 import { Alarm } from 'src/alarms/domain/alarm';
 import { AlarmMapper } from '../mappers/alarm.mapper';
+import { CreateAlarmRepository } from 'src/alarms/application/ports/create-alarm.repository';
 
 @Injectable()
-export class OrmAlarmRepository {
+export class OrmCreateAlarmRepository implements CreateAlarmRepository {
   constructor(
     @InjectRepository(AlarmEntity)
     private readonly alarmRepository: Repository<AlarmEntity>,
   ) {}
 
-  async findAll(): Promise<Alarm[]> {
-    const entities = await this.alarmRepository.find();
-    return entities.map((entity) => AlarmMapper.toDomain(entity));
-  }
-
-  async save(alarm: Alarm): Promise<void> {
+  async save(alarm: Alarm): Promise<Alarm> {
     const persistenceModel = AlarmMapper.toPersistence(alarm);
-    const newEntity = await this.alarmRepository.create(persistenceModel);
-    await this.alarmRepository.save(newEntity);
+    const newEntity = await this.alarmRepository.save(persistenceModel);
+    return AlarmMapper.toDomain(newEntity);
   }
 }
