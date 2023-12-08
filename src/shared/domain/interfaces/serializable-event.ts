@@ -18,7 +18,7 @@ export type SerializedEventPayload<T> = T extends object
  * @template T Event data type
  */
 
-export interface SerializedEvent<T = any> {
+export interface SerializableEvent<T = any> {
   streamId: string;
   type: string;
   position: number;
