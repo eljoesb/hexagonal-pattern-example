@@ -1,6 +1,6 @@
 {
   "name": "advanced-architecture",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Simple app using Advance Hexagonal Architecture with NestJS",
   "author": "Jonathan Villavicencio",
   "private": true,

@@ -3,6 +3,7 @@ import { randomUUID } from 'crypto';
 import { AlarmSeverity } from '../value-objects/alarm-severity';
 import { Alarm } from '../alarm';
 import { AlarmItem } from '../alarm-item';
+import { AlarmCreatedEvent } from 'src/alarms/application/events/alarm-created.event';
 
 @Injectable()
 export class AlarmFactory {
@@ -23,6 +24,7 @@ export class AlarmFactory {
       .map((item) => new AlarmItem(randomUUID(), item.name, item.type))
       .forEach((item) => alarm.addAlarmItem(item));
 
+    alarm.apply(new AlarmCreatedEvent(alarm), { skipHandler: true });
     return alarm;
   }
 }
